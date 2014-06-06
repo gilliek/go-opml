@@ -5,22 +5,71 @@
 package opml
 
 import (
+	"io"
+	"io/ioutil"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"testing"
 )
 
-func TestNewOPMLFromFile(t *testing.T) {
-	testSuccess(t)
-	testFailure(t)
+func TestNewOPMLFromURL(t *testing.T) {
+	testNewOPMLFromURLSuccess(t)
+	testNewOPMLFromURLFailure(t)
 }
 
-func testSuccess(t *testing.T) {
+func TestNewOPMLFromFile(t *testing.T) {
+	testNewOPMLFromFileSuccess(t)
+	testNewOPMLFromFileFailure(t)
+}
+
+func testNewOPMLFromURLSuccess(t *testing.T) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		b, err := ioutil.ReadFile(
+			os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/feeds.xml")
+		if err != nil {
+			t.Fatal(err)
+		}
+		io.WriteString(w, string(b))
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(handler))
+	defer server.Close()
+
+	doc, err := NewOPMLFromURL(server.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	testDoc(t, doc)
+}
+
+func testNewOPMLFromURLFailure(t *testing.T) {
+	_, err := NewOPMLFromURL("1.2.3.4")
+	if err == nil {
+		t.Error("Expected failure!")
+	}
+}
+
+func testNewOPMLFromFileSuccess(t *testing.T) {
 	doc, err := NewOPMLFromFile(
 		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/feeds.xml")
 	if err != nil {
 		t.Fatal(err)
 	}
 
+	testDoc(t, doc)
+}
+
+func testNewOPMLFromFileFailure(t *testing.T) {
+	_, err := NewOPMLFromFile(
+		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/does_not_exist.xml")
+	if err == nil {
+		t.Error("Expected failure!")
+	}
+}
+
+func testDoc(t *testing.T, doc *OPML) {
 	version := doc.Root.Version
 	if version != "1.0" {
 		t.Errorf("Wrong OPML version: expected '1.0', found '%s'", version)
@@ -58,12 +107,4 @@ func testSuccess(t *testing.T) {
 			outlines[0].HTMLURL)
 	}
 
-}
-
-func testFailure(t *testing.T) {
-	_, err := NewOPMLFromFile(
-		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/does_not_exist.xml")
-	if err == nil {
-		t.Error("Expected failure!")
-	}
 }

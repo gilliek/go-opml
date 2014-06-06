@@ -15,3 +15,11 @@ check:
 test:
 	go test ${PKG}
 
+cover:
+	@go test -coverprofile=c.out ${PKG}
+	@go tool cover -html=c.out -o coverage.html
+	@go tool cover -func=c.out
+	@rm c.out
+	@echo ""
+	@echo "See coverage.html for more details"
+

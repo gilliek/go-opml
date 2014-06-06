@@ -2,7 +2,7 @@ PKG = github.com/gilliek/go-opml/opml
 
 all: install
 
-install: check test
+install:
 	go install ${PKG}
 
 build:

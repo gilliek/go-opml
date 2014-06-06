@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>Foobar</title>
+    </head>
+    <body>
+        <outline text="foo" title="bar" type="rss" xmlUrl="http://www.gilliek.ch/feeds" htmlUrl="http://www.gilliek.ch" />
+    </body>
+</opml>

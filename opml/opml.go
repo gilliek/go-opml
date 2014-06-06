@@ -11,13 +11,13 @@ import (
 )
 
 type OPMLNode struct {
-	Version string   `xml:"version"`
+	Version string   `xml:"version,attr"`
 	Head    HeadNode `xml:"head"`
 	Body    BodyNode `xml:"body"`
 }
 
 type HeadNode struct {
-	Title           string `xml:"title,attr"`
+	Title           string `xml:"title"`
 	DateCreated     string `xml:"dateCreated,attr"`
 	DateModified    string `xml:"dateModified,attr"`
 	OwnerName       string `xml:"ownerName,attr"`

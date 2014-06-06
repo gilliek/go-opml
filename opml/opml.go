@@ -44,6 +44,12 @@ type OutlineNode struct {
 	IsBreakpoint string        `xml:"isBreakpoint,attr"`
 	Created      string        `xml:"created,attr"`
 	Category     string        `xml:"category,attr"`
+	XMLURL       string        `xml:"xmlUrl,attr"`
+	HTMLURL      string        `xml:"htmlUrl,attr"`
+	Language     string        `xml:"language,attr"`
+	Title        string        `xml:"title,attr"`
+	Version      string        `xml:"version,attr"`
+	Description  string        `xml:"description,attr"`
 }
 
 type OPML struct {

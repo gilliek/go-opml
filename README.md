@@ -1,4 +1,4 @@
-# GO-OPML
+# go-opml
 
 go-opml aims to be a Go package for parsing OPML files.
 
@@ -49,3 +49,6 @@ func main() {
 }
 ```
 
+# License
+
+BSD 3-clauses

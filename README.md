@@ -2,11 +2,11 @@
 
 go-opml aims to be a Go package for parsing OPML files.
 
-# Installation
+## Installation
 
 ```go get github.com/gilliek/go-opml```
 
-# Usage
+## Usage
 
 Parse OPML from file:
 
@@ -49,6 +49,6 @@ func main() {
 }
 ```
 
-# License
+## License
 
 BSD 3-clauses

@@ -1,5 +1,7 @@
 # go-opml
 
+[![Coverage Status](https://coveralls.io/repos/gilliek/go-opml/badge.png)](https://coveralls.io/r/gilliek/go-opml)
+
 go-opml aims to be a Go package for parsing OPML files.
 
 ## Installation

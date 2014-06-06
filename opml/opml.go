@@ -89,3 +89,7 @@ func NewOPMLFromFile(filePath string) (*OPML, error) {
 
 	return NewOPML(b)
 }
+
+func (doc *OPML) Outlines() []OutlineNode {
+	return doc.Root.Body.Outlines
+}

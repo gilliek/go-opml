@@ -4,7 +4,7 @@ go-opml aims to be a Go package for parsing OPML files.
 
 ## Installation
 
-```go get github.com/gilliek/go-opml```
+```go get github.com/gilliek/go-opml/opml```
 
 ## Usage
 

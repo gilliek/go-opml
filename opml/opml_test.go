@@ -10,6 +10,11 @@ import (
 )
 
 func TestNewOPMLFromFile(t *testing.T) {
+	testSuccess(t)
+	testFailure(t)
+}
+
+func testSuccess(t *testing.T) {
 	doc, err := NewOPMLFromFile(
 		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/feeds.xml")
 	if err != nil {
@@ -51,5 +56,14 @@ func TestNewOPMLFromFile(t *testing.T) {
 	if outlines[0].HTMLURL != "http://www.gilliek.ch" {
 		t.Errorf("Wrong outline HTML URL: expected 'http://www.gilliek.ch', found '%s'",
 			outlines[0].HTMLURL)
+	}
+
+}
+
+func testFailure(t *testing.T) {
+	_, err := NewOPMLFromFile(
+		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/does_not_exist.xml")
+	if err == nil {
+		t.Error("Expected failure!")
 	}
 }

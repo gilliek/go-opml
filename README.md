@@ -16,8 +16,10 @@ Parse OPML from file:
 package main
 
 import (
-	"github.com/gilliek/go-opml/opml"
+	"fmt"
 	"log"
+
+	"github.com/gilliek/go-opml/opml"
 )
 
 func main() {
@@ -25,6 +27,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+    xml, _ := doc.XML()
+	fmt.Println(xml)
 
     //...
 }
@@ -37,8 +42,10 @@ Parse OPML from URL:
 package main
 
 import (
-	"github.com/gilliek/go-opml/opml"
+	"fmt"
 	"log"
+
+	"github.com/gilliek/go-opml/opml"
 )
 
 func main() {
@@ -46,6 +53,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+    xml, _ := doc.XML()
+	fmt.Println(xml)
 
     //...
 }

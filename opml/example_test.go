@@ -17,7 +17,8 @@ func ExampleNewOPMLFromFile() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(doc)
+	xml, _ := doc.XML()
+	fmt.Println(xml)
 }
 
 func ExampleNewOPMLParserFromURL() {
@@ -26,5 +27,6 @@ func ExampleNewOPMLParserFromURL() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(doc)
+	xml, _ := doc.XML()
+	fmt.Println(xml)
 }

@@ -1,7 +1,6 @@
 # go-opml
 
- [![Build Status](https://travis-ci.org/gilliek/go-opml.png?branch=master)](https://travis-ci.org/gilliek/go-opml) [![Coverage Status](https://coveralls.io/repos/gilliek/go-opml/badge.png)](https://coveralls.io/r/gilliek/go-opml)
-
+ [![Build Status](https://travis-ci.org/gilliek/go-opml.png?branch=master)](https://travis-ci.org/gilliek/go-opml)
 go-opml aims to be a Go package for parsing OPML files.
 
 ## Installation

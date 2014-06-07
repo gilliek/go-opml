@@ -22,26 +22,27 @@ import (
 // OPML is the root node of an OPML document. It only has a single required
 // attribute: the version.
 type OPML struct {
-	Version string `xml:"version,attr"`
-	Head    Head   `xml:"head"`
-	Body    Body   `xml:"body"`
+	XMLName xml.Name `xml:"opml"`
+	Version string   `xml:"version,attr"`
+	Head    Head     `xml:"head"`
+	Body    Body     `xml:"body"`
 }
 
 // Head holds some meta information about the document.
 type Head struct {
 	Title           string `xml:"title"`
-	DateCreated     string `xml:"dateCreated,attr"`
-	DateModified    string `xml:"dateModified,attr"`
-	OwnerName       string `xml:"ownerName,attr"`
-	OwnerEmail      string `xml:"ownerEmail,attr"`
-	OwnerID         string `xml:"ownerId,attr"`
-	Docs            string `xml:"docs,attr"`
-	ExpansionState  string `xml:"expansionState,attr"`
-	VertScrollState string `xml:"vertScrollState,attr"`
-	WindowTop       string `xml:"windowTop,attr"`
-	WindowBottom    string `xml:"windowBottom,attr"`
-	WindowLeft      string `xml:"windowLeft,attr"`
-	WindowRight     string `xml:"windowRight,attr"`
+	DateCreated     string `xml:"dateCreated,omitempty"`
+	DateModified    string `xml:"dateModified,omitempty"`
+	OwnerName       string `xml:"ownerName,omitempty"`
+	OwnerEmail      string `xml:"ownerEmail,omitempty"`
+	OwnerID         string `xml:"ownerId,omitempty"`
+	Docs            string `xml:"docs,omitempty"`
+	ExpansionState  string `xml:"expansionState,omitempty"`
+	VertScrollState string `xml:"vertScrollState,omitempty"`
+	WindowTop       string `xml:"windowTop,omitempty"`
+	WindowBottom    string `xml:"windowBottom,omitempty"`
+	WindowLeft      string `xml:"windowLeft,omitempty"`
+	WindowRight     string `xml:"windowRight,omitempty"`
 }
 
 // Body is the parent structure of all outlines.
@@ -53,17 +54,18 @@ type Body struct {
 type Outline struct {
 	Outlines     []Outline `xml:"outline"`
 	Text         string    `xml:"text,attr"`
-	Type         string    `xml:"type,attr"`
-	IsComment    string    `xml:"isComment,attr"`
-	IsBreakpoint string    `xml:"isBreakpoint,attr"`
-	Created      string    `xml:"created,attr"`
-	Category     string    `xml:"category,attr"`
-	XMLURL       string    `xml:"xmlUrl,attr"`
-	HTMLURL      string    `xml:"htmlUrl,attr"`
-	Language     string    `xml:"language,attr"`
-	Title        string    `xml:"title,attr"`
-	Version      string    `xml:"version,attr"`
-	Description  string    `xml:"description,attr"`
+	Type         string    `xml:"type,attr,omitempty"`
+	IsComment    string    `xml:"isComment,attr,omitempty"`
+	IsBreakpoint string    `xml:"isBreakpoint,attr,omitempty"`
+	Created      string    `xml:"created,attr,omitempty"`
+	Category     string    `xml:"category,attr,omitempty"`
+	XMLURL       string    `xml:"xmlUrl,attr,omitempty"`
+	HTMLURL      string    `xml:"htmlUrl,attr,omitempty"`
+	URL          string    `xml:"url,attr,omitempty"`
+	Language     string    `xml:"language,attr,omitempty"`
+	Title        string    `xml:"title,attr,omitempty"`
+	Version      string    `xml:"version,attr,omitempty"`
+	Description  string    `xml:"description,attr,omitempty"`
 }
 
 // NewOPML creates a new OPML structure from a slice of bytes.
@@ -104,6 +106,11 @@ func NewOPMLFromFile(filePath string) (*OPML, error) {
 }
 
 // Outlines returns a slice of the outlines.
-func (doc *OPML) Outlines() []Outline {
+func (doc OPML) Outlines() []Outline {
 	return doc.Body.Outlines
+}
+
+func (doc OPML) XML() (string, error) {
+	b, err := xml.MarshalIndent(doc, "", "\t")
+	return xml.Header + string(b), err
 }

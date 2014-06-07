@@ -13,6 +13,60 @@ import (
 	"testing"
 )
 
+func TestXML(t *testing.T) {
+	doc := OPML{
+		Version: "2.0",
+		Head: Head{
+			Title:        "Foobar",
+			DateCreated:  "Sun, 06 Jul 2008 21:02:00 GMT",
+			DateModified: "Sun, 06 Jul 2008 21:02:00 GMT",
+			OwnerName:    "Kevin",
+			OwnerEmail:   "foo@bar.com",
+		},
+		Body: Body{
+			Outlines: []Outline{
+				Outline{
+					Text: "Technology News",
+					Outlines: []Outline{
+						Outline{
+							Text:    "Go News",
+							Type:    "link",
+							URL:     "http://blog.golang.org/feed.atom",
+							Created: "Thu, 12 Sep 2003 23:35:52 GMT",
+						},
+					},
+				},
+			},
+		},
+	}
+
+	expectedOPML := `<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+	<head>
+		<title>Foobar</title>
+		<dateCreated>Sun, 06 Jul 2008 21:02:00 GMT</dateCreated>
+		<dateModified>Sun, 06 Jul 2008 21:02:00 GMT</dateModified>
+		<ownerName>Kevin</ownerName>
+		<ownerEmail>foo@bar.com</ownerEmail>
+	</head>
+	<body>
+		<outline text="Technology News">
+			<outline text="Go News" type="link" created="Thu, 12 Sep 2003 23:35:52 GMT" url="http://blog.golang.org/feed.atom"></outline>
+		</outline>
+	</body>
+</opml>`
+
+	opml, err := doc.XML()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if opml != expectedOPML {
+		t.Errorf("Invalid generated OPML: expected\n\n%s\n\nfound\n\n%s",
+			expectedOPML, opml)
+	}
+}
+
 func TestNewOPMLFromURL(t *testing.T) {
 	testNewOPMLFromURLSuccess(t)
 	testNewOPMLFromURLFailure(t)

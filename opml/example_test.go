@@ -21,7 +21,7 @@ func ExampleNewOPMLFromFile() {
 	fmt.Println(xml)
 }
 
-func ExampleNewOPMLParserFromURL() {
+func ExampleOPML_XML() {
 	doc, err := opml.NewOPMLFromURL("http://www.example.com/file.xml")
 	if err != nil {
 		log.Fatal(err)

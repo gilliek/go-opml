@@ -26,7 +26,7 @@ func TestNewOPMLFromFile(t *testing.T) {
 func testNewOPMLFromURLSuccess(t *testing.T) {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		b, err := ioutil.ReadFile(
-			os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/opml/testdata/feeds.xml")
+			os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/feeds.xml")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -53,7 +53,7 @@ func testNewOPMLFromURLFailure(t *testing.T) {
 
 func testNewOPMLFromFileSuccess(t *testing.T) {
 	doc, err := NewOPMLFromFile(
-		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/opml/testdata/feeds.xml")
+		os.Getenv("GOPATH") + "/src/github.com/gilliek/go-opml/testdata/feeds.xml")
 	if err != nil {
 		t.Fatal(err)
 	}

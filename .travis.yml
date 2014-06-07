@@ -3,9 +3,4 @@ go:
     - 1.1
     - 1.2
     - tip
-before_install:
-    - go get github.com/axw/gocov/gocov
-    - go get code.google.com/p/go.tools/cmd/cover
-    - go get github.com/mattn/goveralls
-script:
-    - $HOME/gopath/bin/goveralls -package="github.com/gilliek/go-opml/opml" -repotoken="tijyaFbUE1t9Ex15WrKwppg5egLF4tTHT"
+

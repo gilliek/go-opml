@@ -110,6 +110,7 @@ func (doc OPML) Outlines() []Outline {
 	return doc.Body.Outlines
 }
 
+// XML exports the OPML document to a XML string.
 func (doc OPML) XML() (string, error) {
 	b, err := xml.MarshalIndent(doc, "", "\t")
 	return xml.Header + string(b), err

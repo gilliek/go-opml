@@ -70,12 +70,12 @@ func testNewOPMLFromFileFailure(t *testing.T) {
 }
 
 func testDoc(t *testing.T, doc *OPML) {
-	version := doc.Root.Version
+	version := doc.Version
 	if version != "1.0" {
 		t.Errorf("Wrong OPML version: expected '1.0', found '%s'", version)
 	}
 
-	title := doc.Root.Head.Title
+	title := doc.Head.Title
 	if title != "Foobar" {
 		t.Errorf("Wrong title version: expected 'Foobar', found '%s'", title)
 	}

@@ -19,16 +19,16 @@ import (
 	"net/http"
 )
 
-// OPMLNode is the root node of an OPML document. It only has a single required
+// OPML is the root node of an OPML document. It only has a single required
 // attribute: the version.
-type OPMLNode struct {
-	Version string   `xml:"version,attr"`
-	Head    HeadNode `xml:"head"`
-	Body    BodyNode `xml:"body"`
+type OPML struct {
+	Version string `xml:"version,attr"`
+	Head    Head   `xml:"head"`
+	Body    Body   `xml:"body"`
 }
 
-// HeadNode holds some meta information about the document.
-type HeadNode struct {
+// Head holds some meta information about the document.
+type Head struct {
 	Title           string `xml:"title"`
 	DateCreated     string `xml:"dateCreated,attr"`
 	DateModified    string `xml:"dateModified,attr"`
@@ -44,42 +44,37 @@ type HeadNode struct {
 	WindowRight     string `xml:"windowRight,attr"`
 }
 
-// BodyNode is the parent structure of all outlines.
-type BodyNode struct {
-	Outlines []OutlineNode `xml:"outline"`
+// Body is the parent structure of all outlines.
+type Body struct {
+	Outlines []Outline `xml:"outline"`
 }
 
-// OutlineNode holds all information about an outline.
-type OutlineNode struct {
-	Outlines     []OutlineNode `xml:"outline"`
-	Text         string        `xml:"text,attr"`
-	Type         string        `xml:"type,attr"`
-	IsComment    string        `xml:"isComment,attr"`
-	IsBreakpoint string        `xml:"isBreakpoint,attr"`
-	Created      string        `xml:"created,attr"`
-	Category     string        `xml:"category,attr"`
-	XMLURL       string        `xml:"xmlUrl,attr"`
-	HTMLURL      string        `xml:"htmlUrl,attr"`
-	Language     string        `xml:"language,attr"`
-	Title        string        `xml:"title,attr"`
-	Version      string        `xml:"version,attr"`
-	Description  string        `xml:"description,attr"`
-}
-
-// OPML represents an OPML document.
-type OPML struct {
-	Root *OPMLNode
+// Outline holds all information about an outline.
+type Outline struct {
+	Outlines     []Outline `xml:"outline"`
+	Text         string    `xml:"text,attr"`
+	Type         string    `xml:"type,attr"`
+	IsComment    string    `xml:"isComment,attr"`
+	IsBreakpoint string    `xml:"isBreakpoint,attr"`
+	Created      string    `xml:"created,attr"`
+	Category     string    `xml:"category,attr"`
+	XMLURL       string    `xml:"xmlUrl,attr"`
+	HTMLURL      string    `xml:"htmlUrl,attr"`
+	Language     string    `xml:"language,attr"`
+	Title        string    `xml:"title,attr"`
+	Version      string    `xml:"version,attr"`
+	Description  string    `xml:"description,attr"`
 }
 
 // NewOPML creates a new OPML structure from a slice of bytes.
 func NewOPML(b []byte) (*OPML, error) {
-	var root OPMLNode
+	var root OPML
 	err := xml.Unmarshal(b, &root)
 	if err != nil {
 		return nil, err
 	}
 
-	return &OPML{Root: &root}, nil
+	return &root, nil
 }
 
 // NewOPMLFromURL creates a new OPML structure from an URL.
@@ -109,6 +104,6 @@ func NewOPMLFromFile(filePath string) (*OPML, error) {
 }
 
 // Outlines returns a slice of the outlines.
-func (doc *OPML) Outlines() []OutlineNode {
-	return doc.Root.Body.Outlines
+func (doc *OPML) Outlines() []Outline {
+	return doc.Body.Outlines
 }

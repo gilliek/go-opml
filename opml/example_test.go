@@ -5,8 +5,10 @@
 package opml_test
 
 import (
-	"github.com/gilliek/go-opml/opml"
+	"fmt"
 	"log"
+
+	"github.com/gilliek/go-opml/opml"
 )
 
 func ExampleNewOPMLFromFile() {
@@ -14,6 +16,8 @@ func ExampleNewOPMLFromFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println(doc)
 }
 
 func ExampleNewOPMLParserFromURL() {
@@ -21,4 +25,6 @@ func ExampleNewOPMLParserFromURL() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println(doc)
 }

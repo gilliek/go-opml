@@ -8,4 +8,4 @@ before_install:
     - go get code.google.com/p/go.tools/cmd/cover
     - go get github.com/mattn/goveralls
 script:
-    - $HOME/gopath/bin/goveralls tijyaFbUE1t9Ex15WrKwppg5egLF4tTHT
+    - $HOME/gopath/bin/goveralls -package="github.com/gilliek/go-opml/opml" tijyaFbUE1t9Ex15WrKwppg5egLF4tTHT
